@@ -1,0 +1,53 @@
+package persistence;
+
+import factory.Factory;
+import model.Entidade;
+
+public class LivroPersistence extends Persistence{
+	private static LivroPersistence livroPersistence; 
+	
+	private LivroPersistence(){}
+	
+	public synchronized static LivroPersistence getInstance() {
+		if (livroPersistence == null) {
+			livroPersistence = new LivroPersistence();
+		}
+		return livroPersistence;
+	}
+
+	@Override
+	public Factory getFactory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void cadastrar(Entidade ent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void alterar(Entidade ent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void excluir(Entidade ent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Entidade buscar(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Entidade buscar(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
