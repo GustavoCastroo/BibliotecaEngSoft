@@ -29,6 +29,9 @@ public class LivroPersistence extends Persistence{
 	public void alterar(Entidade ent) {
 		// Por estarmos retornando o próprio Objeto Livro na busca para o LivroMenu, 
 		// ao alterarmos o objeto no LivroMenu, ele ja estará sendo alterado na memória 
+		
+		//Quando formos implementar com Arquivo, ai os metodos de alterar serão utilizados para alterar o registro no arquivo
+		
 	}
 
 	@Override

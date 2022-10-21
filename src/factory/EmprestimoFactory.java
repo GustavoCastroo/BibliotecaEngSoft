@@ -12,11 +12,11 @@ import persistence.Persistence;
 public class EmprestimoFactory extends Factory{
 	private static EmprestimoFactory emprestimoFactory; 
 
-	protected EmprestimoFactory() {}
+	private EmprestimoFactory() {}
 	
 	public synchronized static EmprestimoFactory getInstance() {
 		if (emprestimoFactory == null) {
-			emprestimoFactory = (EmprestimoFactory) Factory.getFactory("Emprestimo");
+			emprestimoFactory = new EmprestimoFactory();
 		}
 		return emprestimoFactory;
 	}

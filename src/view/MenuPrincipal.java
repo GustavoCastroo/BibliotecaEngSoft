@@ -1,6 +1,8 @@
 package view;
 
+import factory.EmprestimoFactory;
 import factory.Factory;
+import factory.LivroFactory;
 import main.Console;
 
 public class MenuPrincipal extends Menu {
@@ -14,16 +16,17 @@ public class MenuPrincipal extends Menu {
             System.out.println("2 - Emprestimo");
             System.out.println("0 - Sair");
             
+            System.out.print("\nDigite a opção desejada: ");
             int opcao = Integer.parseInt(Console.readLine());
             
             switch (opcao) {
                 case 1:
-                	Factory livroFactory = Factory.getFactory("Livro");
+                	LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");
                 	LivroMenu livroMenu = (LivroMenu) livroFactory.createMenu();
                 	livroMenu.mostrarMenu();
                     break;
                 case 2:
-                	Factory emprestimoFactory = Factory.getFactory("Emprestimo");
+                	EmprestimoFactory emprestimoFactory = (EmprestimoFactory) Factory.getFactory("Emprestimo");
                 	EmprestimoMenu emprestimoMenu = (EmprestimoMenu) emprestimoFactory.createMenu();
                 	emprestimoMenu.mostrarMenu();
                     break;
@@ -32,7 +35,7 @@ public class MenuPrincipal extends Menu {
                     executando = false;
                     break;
                 default:
-                    System.out.println("Opcao invalida!");
+                    System.out.println("Opção invalida!");
             }	
         }
 	}

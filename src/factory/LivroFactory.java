@@ -12,11 +12,11 @@ import persistence.Persistence;
 public class LivroFactory extends Factory {
 	private static LivroFactory livroFactory; 
 
-	protected LivroFactory() {}
+	private LivroFactory() {}
 	
 	public synchronized static LivroFactory getInstance() {
 		if (livroFactory == null) {
-			livroFactory = (LivroFactory) Factory.getFactory("Livro");
+			livroFactory = new LivroFactory();
 		}
 		return livroFactory;
 	}
