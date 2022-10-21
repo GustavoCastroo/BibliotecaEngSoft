@@ -1,44 +1,48 @@
 package factory;
 
 import controller.Controller;
+import controller.LivroController;
 import model.Entidade;
+import model.Livro;
+import view.LivroMenu;
 import view.Menu;
+import persistence.LivroPersistence;
 import persistence.Persistence;
 
 public class LivroFactory extends Factory {
 	private static LivroFactory livroFactory; 
-	
-	private LivroFactory() {}
+
+	protected LivroFactory() {}
 	
 	public synchronized static LivroFactory getInstance() {
 		if (livroFactory == null) {
-			livroFactory = new LivroFactory();
+			livroFactory = (LivroFactory) Factory.getFactory("Livro");
 		}
 		return livroFactory;
 	}
-
+	
 	@Override
 	public Controller createController() {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return new LivroController();
 	}
 
 	@Override
 	public Menu createMenu() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new LivroMenu();
 	}
 
 	@Override
 	public Entidade createEntidade() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Livro();
 	}
 
 	@Override
 	public Persistence createPersistence() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return LivroPersistence.getInstance();
 	}
 
 }

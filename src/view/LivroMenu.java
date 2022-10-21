@@ -1,6 +1,9 @@
 package view;
 
+import controller.LivroController;
+import factory.LivroFactory;
 import main.Console;
+import model.Livro;
 
 public class LivroMenu extends Menu{
 
@@ -47,16 +50,46 @@ public class LivroMenu extends Menu{
 	}
 
 	private void cadastrarLivro() {
+		LivroFactory livroFactory = LivroFactory.getInstance();
+		Livro livro = (Livro) livroFactory.createEntidade();
+		LivroController livroController = (LivroController) livroFactory.createController();
 		
-		/*System.out.println("Vamos cadastrar o Livro!");
+		System.out.println("Vamos cadastrar o Livro!");
 		
 		System.out.println("Digite o nome do Livro");
-		String nomeLivro = Console.readLine();*/	
+		String nomeLivro = Console.readLine();
+	
+		if (livroController.buscar(nomeLivro) == null) {	// Verificando se o livro já não está cadastrado
+			
+			System.out.println("Digite o identificador numérico do Livro");
+			Integer idLivro = Integer.parseInt(Console.readLine());
+			
+			System.out.println("Digite o autor do Livro");
+			String autorLivro = Console.readLine();
+			
+			System.out.println("Digite edicao do Livro");
+			Integer edicaoLivro = Integer.parseInt(Console.readLine());
+			
+			livro.setAutor(autorLivro);
+			livro.setEdicao(edicaoLivro);
+			livro.setId(idLivro);
+			livro.setNome(nomeLivro);
+			
+			livroController.cadastrar(livro);
+			
+		}else {
+			
+			System.out.println("\nO Livro já está cadastrado no sistema!");
+		}
+		
 	}
 	
 	private void alterarLivro() {
-		// TODO Auto-generated method stub
+		/*System.out.println("Qual o nome do livro que vc deseja alterar?");
+		String nomeLivro = Console.readLine();
 		
+		Livro livro = controller.busca(nomeLivro);
+		Livro.setNome("Princesa Sofia");*/
 	}
 	
 	private void excluirLivro() {
@@ -65,7 +98,17 @@ public class LivroMenu extends Menu{
 	}
 	
 	private void exibirLivro() {
-		// TODO Auto-generated method stub
+		LivroFactory livroFactory = LivroFactory.getInstance();
+		Livro livro = (Livro) livroFactory.createEntidade();
+		LivroController livroController = (LivroController) livroFactory.createController();
 		
+		System.out.println("Vamos exibir o Livro!");
+		
+		System.out.println("Digite o nome do Livro");
+		String nomeLivro = Console.readLine();
+		
+		livro = (Livro) livroController.buscar(nomeLivro);
+		
+		System.out.println(livro.toString());
 	}
 }

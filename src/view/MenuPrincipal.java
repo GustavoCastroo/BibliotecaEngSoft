@@ -1,5 +1,6 @@
 package view;
 
+import factory.Factory;
 import main.Console;
 
 public class MenuPrincipal extends Menu {
@@ -17,12 +18,14 @@ public class MenuPrincipal extends Menu {
             
             switch (opcao) {
                 case 1:
-                	LivroMenu instanceLivroMenu = new LivroMenu();
-                	instanceLivroMenu.mostrarMenu();
+                	Factory livroFactory = Factory.getFactory("Livro");
+                	LivroMenu livroMenu = (LivroMenu) livroFactory.createMenu();
+                	livroMenu.mostrarMenu();
                     break;
                 case 2:
-                	EmprestimoMenu instanceEmprestimoMenu = new EmprestimoMenu();
-                	instanceEmprestimoMenu.mostrarMenu();
+                	Factory emprestimoFactory = Factory.getFactory("Emprestimo");
+                	EmprestimoMenu emprestimoMenu = (EmprestimoMenu) emprestimoFactory.createMenu();
+                	emprestimoMenu.mostrarMenu();
                     break;
                 case 0: 
                     System.out.println("Volte Sempre!");

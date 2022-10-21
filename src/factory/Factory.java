@@ -10,13 +10,10 @@ public abstract class Factory {
 	public static Factory getFactory(String string) {
 		
 		if (string.equals("Livro")) {
+			return new LivroFactory();
 			
-			LivroFactory livroFactory = LivroFactory.getInstance();
-			return livroFactory;
-			
-		}else {
-			EmprestimoFactory emprestimoFactory = EmprestimoFactory.getInstance();
-			return emprestimoFactory;	
+		}else {			
+			return new EmprestimoFactory();	
 		}
 	}
 	

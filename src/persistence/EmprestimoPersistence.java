@@ -1,6 +1,5 @@
 package persistence;
 
-import factory.Factory;
 import model.Entidade;
 
 public class EmprestimoPersistence extends Persistence {
@@ -13,12 +12,6 @@ private static EmprestimoPersistence emprestimoPersistence;
 			emprestimoPersistence = new EmprestimoPersistence();
 		}
 		return emprestimoPersistence;
-	}
-
-	@Override
-	public Factory getFactory() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

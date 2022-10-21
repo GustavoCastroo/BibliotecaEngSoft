@@ -3,16 +3,6 @@ package controller;
 import model.Entidade;
 
 public class EmprestimoController extends Controller {
-	private static EmprestimoController emprestimoController; 
-	
-	private EmprestimoController(){}
-	
-	public synchronized static EmprestimoController getInstance() {
-		if (emprestimoController == null) {
-			emprestimoController = new EmprestimoController();
-		}
-		return emprestimoController;
-	}
 	
 	@Override
 	public void cadastrar(Entidade ent) {

@@ -1,11 +1,8 @@
 package persistence;
 
-import factory.Factory;
 import model.Entidade;
 
 public abstract class Persistence {
-	
-	public abstract Factory getFactory();
 	
 	public abstract void cadastrar(Entidade ent);
 	

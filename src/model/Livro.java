@@ -7,7 +7,7 @@ public class Livro extends Entidade{
 	
 	public String toString() {
 		
-		return "Identificador: " + getId() + "Livro: " + this.nome + " Autor: " + this.autor + " Edição: " + this.edicao + "ª .";
+		return "Identificador: " + getId() + ", Livro: " + this.nome + ", Autor: " + this.autor + ", Edição: " + this.edicao + "ª .\n";
 	}
 
 	public String getAutor() {

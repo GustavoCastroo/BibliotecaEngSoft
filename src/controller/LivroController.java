@@ -1,46 +1,48 @@
 package controller;
 
+import factory.LivroFactory;
 import model.Entidade;
+import persistence.LivroPersistence;
 
 public class LivroController extends Controller {
-	private static LivroController livroController; 
-	
-	private LivroController(){}
-	
-	public synchronized static LivroController getInstance() {
-		if (livroController == null) {
-			livroController = new LivroController();
-		}
-		return livroController;
-	}
 	
 	public void cadastrar(Entidade ent) {
-		// TODO Auto-generated method stub
+		LivroFactory livroFactory = LivroFactory.getInstance();
+		LivroPersistence livroPersistence = (LivroPersistence) livroFactory.createPersistence();
 		
+		livroPersistence.cadastrar(ent);
 	}
 
 	@Override
 	public void alterar(Entidade ent) {
-		// TODO Auto-generated method stub
+		LivroFactory livroFactory = LivroFactory.getInstance();
+		LivroPersistence livroPersistence = (LivroPersistence) livroFactory.createPersistence();
 		
+		livroPersistence.alterar(ent);		
 	}
 
 	@Override
 	public void excluir(Entidade ent) {
-		// TODO Auto-generated method stub
+		LivroFactory livroFactory = LivroFactory.getInstance();
+		LivroPersistence livroPersistence = (LivroPersistence) livroFactory.createPersistence();
 		
+		livroPersistence.excluir(ent);
 	}
 
 	@Override
 	public Entidade buscar(String string) {
+		LivroFactory livroFactory = LivroFactory.getInstance();
+		LivroPersistence livroPersistence = (LivroPersistence) livroFactory.createPersistence();
 		
-		return null;
+		return livroPersistence.buscar(string);
 	}
 
 	@Override
 	public Entidade buscar(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		LivroFactory livroFactory = LivroFactory.getInstance();
+		LivroPersistence livroPersistence = (LivroPersistence) livroFactory.createPersistence();
+		
+		return livroPersistence.buscar(id);
 	}
 
 }
