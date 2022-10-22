@@ -1,9 +1,13 @@
 package persistence;
 
+import java.util.LinkedList;
+import java.util.List;
+import model.Emprestimo;
 import model.Entidade;
 
 public class EmprestimoPersistence extends Persistence {
-private static EmprestimoPersistence emprestimoPersistence; 
+	private static EmprestimoPersistence emprestimoPersistence; 
+	private List<Emprestimo> emprestimos = new LinkedList<Emprestimo>();
 	
 	private EmprestimoPersistence(){}
 	
@@ -16,8 +20,8 @@ private static EmprestimoPersistence emprestimoPersistence;
 
 	@Override
 	public void cadastrar(Entidade ent) {
-		// TODO Auto-generated method stub
 		
+		emprestimos.add((Emprestimo)ent);	
 	}
 
 	@Override
@@ -28,19 +32,27 @@ private static EmprestimoPersistence emprestimoPersistence;
 
 	@Override
 	public void excluir(Entidade ent) {
-		// TODO Auto-generated method stub
 		
+		emprestimos.remove((Emprestimo)ent);
 	}
 
 	@Override
 	public Entidade buscar(String string) {
-		// TODO Auto-generated method stub
+		for(Emprestimo emprestimo : emprestimos) {
+			if (emprestimo.getMatriculaAluno().equals(string)) {
+				return emprestimo;
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public Entidade buscar(Integer id) {
-		// TODO Auto-generated method stub
+		for(Emprestimo emprestimo : emprestimos) {
+			if (emprestimo.getId().equals(id)) {
+				return emprestimo;
+			}
+		}
 		return null;
 	}
 }

@@ -2,7 +2,6 @@ package persistence;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import model.Entidade;
 import model.Livro;
 
@@ -61,4 +60,6 @@ public class LivroPersistence extends Persistence{
 		}
 		return null;
 	}
+	
+	
 }

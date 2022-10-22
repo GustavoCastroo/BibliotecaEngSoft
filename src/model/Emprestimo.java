@@ -8,7 +8,7 @@ public class Emprestimo extends Entidade{
 	private String nomeAluno;
 	private List<Livro> livros = new LinkedList<Livro>();
 	public String toString() {
-		String string = "Identificador: " + getId() + " Matricula do Aluno: " + this.matriculaAluno + " Nome do Aluno: " + this.nomeAluno + " Lista de Livros:";
+		String string = "Identificador: " + getId() + ", Matricula do Aluno: " + this.matriculaAluno + ", Nome do Aluno: " + this.nomeAluno + ", Lista de Livros:";
 		
 		for (Livro livro : livros) {
 			string += "\n   " + livro.toString();

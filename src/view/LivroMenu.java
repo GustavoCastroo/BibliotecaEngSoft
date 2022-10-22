@@ -43,7 +43,7 @@ public class LivroMenu extends Menu{
                      executando = false;
                      break;
                  default:
-                     System.out.println("Opcao invalida!");
+                     System.out.println("Opção invalida!");
              }	
          }
          
@@ -57,7 +57,7 @@ public class LivroMenu extends Menu{
 		
 		System.out.println("Vamos cadastrar o Livro!");
 		
-		System.out.print("\nDigite o nome do Livro:");
+		System.out.print("\nDigite o nome do Livro: ");
 		String nomeLivro = Console.readLine();
 	
 		if (livroController.buscar(nomeLivro) == null) {	// Verificando se o livro já não está cadastrado
@@ -85,36 +85,196 @@ public class LivroMenu extends Menu{
 		}else {
 			
 			System.out.println("\nO Livro já está cadastrado no sistema!");
-		}
-		
+		}		
 	}
 	
 	private void alterarLivro() {
+		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");		
+		LivroController livroController = (LivroController) livroFactory.createController();
+		Livro livro = null;
+		boolean achou = false;
 		
-		/*System.out.println("Qual o nome do livro que vc deseja alterar?");
-		String nomeLivro = Console.readLine();
-		
-		Livro livro = controller.busca(nomeLivro);*/
-	
+		boolean executando = true;
+		 
+        while (executando) {
+            System.out.println("\nDeseja pesquisar o livro usando:");
+            System.out.println("1 - Identificador numérico");
+            System.out.println("2 - Nome do Livro");
+            
+            System.out.print("\nDigite a opção desejada: ");
+            int opcao = Integer.parseInt(Console.readLine());
+            
+            switch (opcao) {
+                case 1:                	 
+                	System.out.println("\nQual o identificador do livro que vc deseja alterar?");
+            		Integer idLivro = Integer.parseInt(Console.readLine());
+            		
+            		livro = (Livro) livroController.buscar(idLivro);
+            		
+            		if (livro != null) {
+            			achou = true;
+            		} else {
+            			System.out.println("Livro não está cadastrado");
+            		}
+               	 	executando = false;
+               	 	
+                    break;
+                case 2:
+               	 
+                	System.out.println("\nQual o nome do livro que vc deseja alterar?");
+            		String nomeLivro = Console.readLine();
+            		
+            		livro = (Livro) livroController.buscar(nomeLivro);
+            		
+            		if (livro != null) {
+            			achou = true;
+            		} else {
+            			System.out.println("Livro não está cadastrado");
+            		}
+            		
+            		executando = false;
+                    break;            
+                default:
+                    System.out.println("Opcao invalida!");
+            }	
+        }
+
+        if(achou) {
+        	System.out.print("\nDigite o novo nome do Livro:");
+    		String nomeLivro = Console.readLine();
+    	
+    		System.out.print("\nDigite o novo identificador numérico do Livro: ");
+    		Integer idLivro = Integer.parseInt(Console.readLine());
+    		
+    		System.out.print("\nDigite o novo autor do Livro: ");
+    		String autorLivro = Console.readLine();
+    		
+    		System.out.print("\nDigite a nova edicao do Livro: ");
+    		Integer edicaoLivro = Integer.parseInt(Console.readLine());
+    		
+    		livro.setAutor(autorLivro);
+    		livro.setEdicao(edicaoLivro);
+    		livro.setId(idLivro);
+    		livro.setNome(nomeLivro);    	
+    		
+    		livroController.alterar(livro);
+    		
+    		System.out.println("\nAlteração realizada com sucesso!");
+        }
 	}
 	
 	private void excluirLivro() {
-		// TODO Auto-generated method stub
+		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");		
+		LivroController livroController = (LivroController) livroFactory.createController();
+		Livro livro = null;
+		boolean achou = false;
 		
+		boolean executando = true;
+		 
+        while (executando) {
+            System.out.println("\nDeseja pesquisar o livro usando:");
+            System.out.println("1 - Identificador numérico");
+            System.out.println("2 - Nome do Livro");
+            
+            System.out.print("\nDigite a opção desejada: ");
+            int opcao = Integer.parseInt(Console.readLine());
+            
+            switch (opcao) {
+                case 1:                	 
+                	System.out.println("\nQual o identificador do livro que vc deseja excluir?");
+            		Integer idLivro = Integer.parseInt(Console.readLine());
+            		
+            		livro = (Livro) livroController.buscar(idLivro);
+            		
+            		if (livro != null) {
+            			achou = true;
+            		} else {
+            			System.out.println("Livro não está cadastrado");
+            		}
+               	 	executando = false;
+               	 	
+                    break;
+                case 2:
+               	 
+                	System.out.println("\nQual o nome do livro que vc deseja excluir?");
+            		String nomeLivro = Console.readLine();
+            		
+            		livro = (Livro) livroController.buscar(nomeLivro);
+            		
+            		if (livro != null) {
+            			achou = true;
+            		} else {
+            			System.out.println("Livro não está cadastrado");
+            		}
+            		
+            		executando = false;
+                    break;            
+                default:
+                    System.out.println("Opcao invalida!");
+            }	
+        }
+
+        if(achou) {
+        	livroController.excluir(livro);
+        	
+        	System.out.println("\nExclusão realizada com sucesso!");        	
+        }		
 	}
 	
 	private void exibirLivro() {
-		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");
+		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");		
 		LivroController livroController = (LivroController) livroFactory.createController();
-		Livro livro = (Livro) livroFactory.createEntidade();
+		Livro livro = null;
+		boolean achou = false;
 		
-		System.out.println("Vamos exibir o Livro!");
-		
-		System.out.println("Digite o nome do Livro");
-		String nomeLivro = Console.readLine();
-		
-		livro = (Livro) livroController.buscar(nomeLivro);
-		
-		System.out.println(livro.toString());
+		boolean executando = true;
+		 
+        while (executando) {
+            System.out.println("\nDeseja pesquisar o livro usando:");
+            System.out.println("1 - Identificador numérico");
+            System.out.println("2 - Nome do Livro");
+            
+            System.out.print("\nDigite a opção desejada: ");
+            int opcao = Integer.parseInt(Console.readLine());
+            
+            switch (opcao) {
+                case 1:                	 
+                	System.out.println("\nQual o identificador do livro que vc deseja exibir?");
+            		Integer idLivro = Integer.parseInt(Console.readLine());
+            		
+            		livro = (Livro) livroController.buscar(idLivro);
+            		
+            		if (livro != null) {
+            			achou = true;
+            		} else {
+            			System.out.println("Livro não está cadastrado");
+            		}
+               	 	executando = false;
+               	 	
+                    break;
+                case 2:
+               	 
+                	System.out.println("\nQual o nome do livro que vc deseja exibir?");
+            		String nomeLivro = Console.readLine();
+            		
+            		livro = (Livro) livroController.buscar(nomeLivro);
+            		
+            		if (livro != null) {
+            			achou = true;
+            		} else {
+            			System.out.println("Livro não está cadastrado");
+            		}
+            		
+            		executando = false;
+                    break;            
+                default:
+                    System.out.println("Opcao invalida!");
+            }	
+        }
+
+        if(achou) {    
+        	
+        	System.out.println(livro.toString());        	
+        }
 	}
 }

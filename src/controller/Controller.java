@@ -1,6 +1,6 @@
 package controller;
 
-import model.Entidade;	
+import model.Entidade;
 
 public abstract class Controller {
 	

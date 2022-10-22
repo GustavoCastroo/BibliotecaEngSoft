@@ -9,7 +9,7 @@ public class LivroController extends Controller {
 	public void cadastrar(Entidade ent) {
 		LivroFactory livroFactory = LivroFactory.getInstance();
 		LivroPersistence livroPersistence = (LivroPersistence) livroFactory.createPersistence();
-		
+
 		livroPersistence.cadastrar(ent);
 	}
 
@@ -44,5 +44,4 @@ public class LivroController extends Controller {
 		
 		return livroPersistence.buscar(id);
 	}
-
 }
