@@ -1,5 +1,7 @@
 package view;
 
+import java.io.IOException;
+
 import factory.EmprestimoFactory;
 import factory.Factory;
 import factory.LivroFactory;
@@ -7,7 +9,7 @@ import main.Console;
 
 public class MenuPrincipal extends Menu {
 
-	public void mostrarMenu() {
+	public void mostrarMenu() throws IOException {
 		boolean executando = true;
         
         while (executando) {

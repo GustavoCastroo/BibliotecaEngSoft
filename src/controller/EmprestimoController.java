@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import factory.EmprestimoFactory;
 import model.Entidade;
 import persistence.EmprestimoPersistence;
@@ -8,7 +11,7 @@ import persistence.EmprestimoPersistence;
 public class EmprestimoController extends Controller {
 	
 	@Override
-	public void cadastrar(Entidade ent) {
+	public void cadastrar(Entidade ent) throws IOException {
 		EmprestimoFactory emprestimoFactory = EmprestimoFactory.getInstance();
 		EmprestimoPersistence emprestimoPersistence = (EmprestimoPersistence) emprestimoFactory.createPersistence();
 
@@ -16,7 +19,7 @@ public class EmprestimoController extends Controller {
 	}
 
 	@Override
-	public void alterar(Entidade ent) {
+	public void alterar(Entidade ent) throws IOException {
 		EmprestimoFactory emprestimoFactory = EmprestimoFactory.getInstance();
 		EmprestimoPersistence emprestimoPersistence = (EmprestimoPersistence) emprestimoFactory.createPersistence();
 
@@ -24,7 +27,7 @@ public class EmprestimoController extends Controller {
 	}
 
 	@Override
-	public void excluir(Entidade ent) {
+	public void excluir(Entidade ent) throws IOException {
 		EmprestimoFactory emprestimoFactory = EmprestimoFactory.getInstance();
 		EmprestimoPersistence emprestimoPersistence = (EmprestimoPersistence) emprestimoFactory.createPersistence();
 
@@ -32,7 +35,7 @@ public class EmprestimoController extends Controller {
 	}
 
 	@Override
-	public Entidade buscar(String string) {
+	public List<Entidade> buscar(String string) throws IOException {
 		EmprestimoFactory emprestimoFactory = EmprestimoFactory.getInstance();
 		EmprestimoPersistence emprestimoPersistence = (EmprestimoPersistence) emprestimoFactory.createPersistence();
 
@@ -40,7 +43,7 @@ public class EmprestimoController extends Controller {
 	}
 
 	@Override
-	public Entidade buscar(Integer id) {
+	public Entidade buscar(Integer id) throws IOException {
 		EmprestimoFactory emprestimoFactory = EmprestimoFactory.getInstance();
 		EmprestimoPersistence emprestimoPersistence = (EmprestimoPersistence) emprestimoFactory.createPersistence();
 

@@ -1,5 +1,7 @@
 package factory;
 
+import java.io.IOException;
+
 import controller.Controller;
 import controller.LivroController;
 import model.Entidade;
@@ -40,7 +42,7 @@ public class LivroFactory extends Factory {
 	}
 
 	@Override
-	public Persistence createPersistence() {
+	public Persistence createPersistence() throws IOException {
 		
 		return LivroPersistence.getInstance();
 	}

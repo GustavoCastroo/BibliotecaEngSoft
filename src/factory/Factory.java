@@ -1,6 +1,9 @@
 package factory;
 
 import view.Menu;
+
+import java.io.IOException;
+
 import controller.Controller;
 import model.Entidade;
 import persistence.Persistence;
@@ -23,6 +26,6 @@ public abstract class Factory {
 	
 	public abstract Entidade createEntidade();
 	
-	public abstract Persistence createPersistence();
+	public abstract Persistence createPersistence() throws IOException;
 	
 }

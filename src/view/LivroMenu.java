@@ -1,14 +1,19 @@
 package view;
 
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
 import controller.LivroController;
 import factory.Factory;
 import factory.LivroFactory;
 import main.Console;
+import model.Entidade;
 import model.Livro;
 
 public class LivroMenu extends Menu{
 
-	public void mostrarMenu() {
+	public void mostrarMenu() throws IOException {
 		 boolean executando = true;
 		 
          while (executando) {
@@ -51,7 +56,7 @@ public class LivroMenu extends Menu{
 		 instanceMenuPrincipal.mostrarMenu();
 	}
 
-	private void cadastrarLivro() {
+	private void cadastrarLivro() throws IOException {
 		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");		
 		LivroController livroController = (LivroController) livroFactory.createController();
 		
@@ -60,7 +65,7 @@ public class LivroMenu extends Menu{
 		System.out.print("\nDigite o nome do Livro: ");
 		String nomeLivro = Console.readLine();
 	
-		if (livroController.buscar(nomeLivro) == null) {	// Verificando se o livro já não está cadastrado
+		if (livroController.buscar(nomeLivro).isEmpty()) {	// Verificando se o livro já não está cadastrado
 			
 			System.out.print("\nDigite o identificador numérico do Livro: ");
 			Integer idLivro = Integer.parseInt(Console.readLine());
@@ -88,7 +93,7 @@ public class LivroMenu extends Menu{
 		}		
 	}
 	
-	private void alterarLivro() {
+	private void alterarLivro() throws IOException {
 		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");		
 		LivroController livroController = (LivroController) livroFactory.createController();
 		Livro livro = null;
@@ -120,14 +125,38 @@ public class LivroMenu extends Menu{
                	 	
                     break;
                 case 2:
-               	 
+                	List<Entidade> resultadoBusca = new LinkedList<Entidade>();
+                	
                 	System.out.println("\nQual o nome do livro que vc deseja alterar?");
             		String nomeLivro = Console.readLine();
             		
-            		livro = (Livro) livroController.buscar(nomeLivro);
+            		resultadoBusca = livroController.buscar(nomeLivro);
             		
-            		if (livro != null) {
-            			achou = true;
+            		if (!resultadoBusca.isEmpty()) {
+
+            			System.out.print("\nDigite o novo nome do Livro:");
+                		String nomeLivro2 = Console.readLine();
+                	
+                		System.out.print("\nDigite o novo identificador numérico do Livro: ");
+                		Integer idLivro2 = Integer.parseInt(Console.readLine());
+                		
+                		System.out.print("\nDigite o novo autor do Livro: ");
+                		String autorLivro2 = Console.readLine();
+                		
+                		System.out.print("\nDigite a nova edicao do Livro: ");
+                		Integer edicaoLivro2 = Integer.parseInt(Console.readLine());
+                		
+                		for(Entidade livro2 : resultadoBusca) {
+                			((Livro)livro2).setAutor(autorLivro2);
+                			((Livro)livro2).setEdicao(edicaoLivro2);
+                			((Livro)livro2).setId(idLivro2);
+                			((Livro)livro2).setNome(nomeLivro2);    	
+                    		
+                    		livroController.alterar(livro2);
+                    		System.out.println("\nAlteração realizada com sucesso!");
+            			}
+                		
+                		
             		} else {
             			System.out.println("Livro não está cadastrado");
             		}
@@ -163,7 +192,7 @@ public class LivroMenu extends Menu{
         }
 	}
 	
-	private void excluirLivro() {
+	private void excluirLivro() throws IOException {
 		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");		
 		LivroController livroController = (LivroController) livroFactory.createController();
 		Livro livro = null;
@@ -195,14 +224,18 @@ public class LivroMenu extends Menu{
                	 	
                     break;
                 case 2:
-               	 
+                	List<Entidade> resultadoBusca = new LinkedList<Entidade>();
+                	
                 	System.out.println("\nQual o nome do livro que vc deseja excluir?");
             		String nomeLivro = Console.readLine();
             		
-            		livro = (Livro) livroController.buscar(nomeLivro);
+            		resultadoBusca = livroController.buscar(nomeLivro);
             		
-            		if (livro != null) {
-            			achou = true;
+            		if (!resultadoBusca.isEmpty()) {
+            			for(Entidade livro2 : resultadoBusca) {
+            				livroController.excluir(livro2);
+            				System.out.println("\nExclusão realizada com sucesso!");
+            			}            		
             		} else {
             			System.out.println("Livro não está cadastrado");
             		}
@@ -221,7 +254,7 @@ public class LivroMenu extends Menu{
         }		
 	}
 	
-	private void exibirLivro() {
+	private void exibirLivro() throws IOException {
 		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");		
 		LivroController livroController = (LivroController) livroFactory.createController();
 		Livro livro = null;
@@ -253,14 +286,17 @@ public class LivroMenu extends Menu{
                	 	
                     break;
                 case 2:
-               	 
+                	List<Entidade> resultadoBusca = new LinkedList<Entidade>();
+                	
                 	System.out.println("\nQual o nome do livro que vc deseja exibir?");
             		String nomeLivro = Console.readLine();
             		
-            		livro = (Livro) livroController.buscar(nomeLivro);
+            		resultadoBusca = livroController.buscar(nomeLivro);
             		
-            		if (livro != null) {
-            			achou = true;
+            		if (!resultadoBusca.isEmpty()) {
+            			for(Entidade livro2 : resultadoBusca) {
+            				System.out.println(((Livro)livro2).toString());
+            			}
             		} else {
             			System.out.println("Livro não está cadastrado");
             		}

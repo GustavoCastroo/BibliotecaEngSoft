@@ -1,4 +1,5 @@
 package view;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,12 +10,13 @@ import factory.Factory;
 import factory.LivroFactory;
 import main.Console;
 import model.Emprestimo;
+import model.Entidade;
 import model.Livro;
 import persistence.EmprestimoPersistence;
 
 public class EmprestimoMenu extends Menu{
 	
-	public void mostrarMenu() {
+	public void mostrarMenu() throws IOException {
 		boolean executando = true;
 		
         while (executando) {
@@ -61,7 +63,7 @@ public class EmprestimoMenu extends Menu{
 		instanceMenuPrincipal.mostrarMenu();	
 	}
 	
-	private void cadastrarEmprestimo() {
+	private void cadastrarEmprestimo() throws IOException {
 		EmprestimoFactory emprestimoFactory = (EmprestimoFactory) Factory.getFactory("Emprestimo");		
 		EmprestimoController emprestimoController = (EmprestimoController) emprestimoFactory.createController();
 		Emprestimo emprestimo = (Emprestimo) emprestimoFactory.createEntidade();
@@ -92,7 +94,7 @@ public class EmprestimoMenu extends Menu{
 		}
 	}
 	
-	private boolean gerenciaListaDeLivros(Emprestimo emprestimo) {
+	private boolean gerenciaListaDeLivros(Emprestimo emprestimo) throws IOException {
 		boolean executando = true;
 		boolean retorno = false;
 		
@@ -150,7 +152,7 @@ public class EmprestimoMenu extends Menu{
         return retorno;
 	}
 	
-	private void adicionarLivroNaLista(Emprestimo emprestimo) {
+	private void adicionarLivroNaLista(Emprestimo emprestimo) throws IOException {
 		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");		
 		LivroController livroController = (LivroController) livroFactory.createController();
 		Livro livro = (Livro) livroFactory.createEntidade();
@@ -182,20 +184,26 @@ public class EmprestimoMenu extends Menu{
                	 	executando = false;
                	 	
                     break;
-                case 2:
-               	 
+                case 2:               	 	
+                	List<Entidade> resultadoBusca = new LinkedList<Entidade>();
+                	
                 	System.out.println("\nQual o nome do livro que vc deseja adicionar?");
             		String nomeLivro = Console.readLine();
             		
-            		livro = (Livro) livroController.buscar(nomeLivro);
+            		resultadoBusca = livroController.buscar(nomeLivro);
             		
-            		if (livro != null) {
-            			achou = true;
+            		if (!resultadoBusca.isEmpty()) {
+            			for(Entidade livro2 : resultadoBusca) {
+            			
+            				emprestimo.getLivros().add(((Livro) livro2));
+            	        	System.out.println("Livro adicionado com sucesso!");
+            			}            		
             		} else {
             			System.out.println("Livro não está cadastrado");
             		}
             		
             		executando = false;
+            		                	
                     break;            
                 default:
                     System.out.println("Opcao invalida!");
@@ -208,7 +216,7 @@ public class EmprestimoMenu extends Menu{
         }
 	}
 	
-	private void removerLivroDaLista(Emprestimo emprestimo) {
+	private void removerLivroDaLista(Emprestimo emprestimo) throws IOException {
 		LivroFactory livroFactory = (LivroFactory) Factory.getFactory("Livro");	
 		LivroController livroController = (LivroController) livroFactory.createController();
 		Livro livro = (Livro) livroFactory.createEntidade();
@@ -252,7 +260,7 @@ public class EmprestimoMenu extends Menu{
 		}		
 	}
 	
-	private void alterarEmprestimo() {
+	private void alterarEmprestimo() throws IOException {
 		EmprestimoFactory emprestimoFactory = (EmprestimoFactory) Factory.getFactory("Emprestimo");		
 		EmprestimoController emprestimoController = (EmprestimoController) emprestimoFactory.createController();	
 		Emprestimo emprestimo =  (Emprestimo) emprestimoFactory.createEntidade();
@@ -289,7 +297,7 @@ public class EmprestimoMenu extends Menu{
         }
 	}
 	
-	private void excluirEmprestimo() {		
+	private void excluirEmprestimo() throws IOException {		
 		EmprestimoFactory emprestimoFactory = (EmprestimoFactory) Factory.getFactory("Emprestimo");		
 		EmprestimoController emprestimoController = (EmprestimoController) emprestimoFactory.createController();	
 		Emprestimo emprestimo =  (Emprestimo) emprestimoFactory.createEntidade();
@@ -313,7 +321,7 @@ public class EmprestimoMenu extends Menu{
 		
 	}
 
-	private void exibirEmprestimo() {
+	private void exibirEmprestimo() throws IOException {
 		EmprestimoFactory emprestimoFactory = (EmprestimoFactory) Factory.getFactory("Emprestimo");		
 		EmprestimoController emprestimoController = (EmprestimoController) emprestimoFactory.createController();	
 		Emprestimo emprestimo =  (Emprestimo) emprestimoFactory.createEntidade();
@@ -323,7 +331,7 @@ public class EmprestimoMenu extends Menu{
         while (executando) {
             System.out.println("\nExibição dos empréstimos:");
             System.out.println("1 - Exibir um empréstimo específico a partir do identificador do empréstimo");
-            System.out.println("2 - Exibir um empréstimo de um aluno através de sua matrícula");
+            System.out.println("2 - Exibir todos empréstimos de um aluno através de sua matrícula");
             
             System.out.print("\nDigite a opção desejada: ");
             int opcao = Integer.parseInt(Console.readLine());
@@ -344,16 +352,21 @@ public class EmprestimoMenu extends Menu{
                	 	
                     break;
                 case 2:
-               	 
+               	 	List<Entidade> resultadoBusca = new LinkedList<Entidade>();
+               	 	
                 	System.out.println("\nQual a matrícula do aluno que você deseja exibir o empréstimo?");
             		String matriculaAluno = Console.readLine();            		            
             		
-            		emprestimo= (Emprestimo) emprestimoController.buscar(matriculaAluno);
+            		resultadoBusca = emprestimoController.buscar(matriculaAluno);
             		
-            		if (emprestimo != null) {
-            			achou = true;
+            		if (!resultadoBusca.isEmpty()) {
+            			
+            			for(Entidade empres : resultadoBusca) {
+            				System.out.println(((Emprestimo)empres).toString());
+            			}
+            			
             		} else {
-            			System.out.println("Emprestimo não está cadastrado");
+            			System.out.println("Emprestimo não encontrado");
             		}
             		
             		executando = false;
@@ -368,7 +381,7 @@ public class EmprestimoMenu extends Menu{
         }
 	}
 
-	private void realizarDevolucao() {
+	private void realizarDevolucao() throws IOException {
 		excluirEmprestimo();
 	}
 }

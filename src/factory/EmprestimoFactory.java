@@ -1,5 +1,7 @@
 package factory;
 
+import java.io.IOException;
+
 import controller.Controller;
 import controller.EmprestimoController;
 import model.Emprestimo;
@@ -40,7 +42,7 @@ public class EmprestimoFactory extends Factory{
 	}
 
 	@Override
-	public Persistence createPersistence() {
+	public Persistence createPersistence() throws IOException {
 		
 		return EmprestimoPersistence.getInstance();
 	}
